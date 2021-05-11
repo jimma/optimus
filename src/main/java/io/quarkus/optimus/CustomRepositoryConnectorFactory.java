@@ -117,6 +117,10 @@ public class CustomRepositoryConnectorFactory implements RepositoryConnectorFact
                                     }
                                 }
                             }
+                            Path jarPath = entry.getValue().toPath();
+                            if (JarUtils.isSignedJar(jarPath)) {
+                                JarUtils.unsign(jarPath);
+                            }
                         } else if (i.getArtifact().getExtension().equals("pom")) {
                             entry.getValue().getParentFile().mkdirs();
                             String pomFile = new String(Files.readAllBytes(toTransform.toPath()), StandardCharsets.UTF_8);
